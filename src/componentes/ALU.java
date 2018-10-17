@@ -1,7 +1,5 @@
 package componentes;
 
-import java.util.Arrays;
-
 public class ALU {
     boolean paridad;// true cuando el complemento a 2 produce un carry
     boolean sign;// true cuando el bil mas significativo == 1
@@ -38,14 +36,14 @@ public class ALU {
 
     }
     public void suma (int[] registros,String x){// opera lo que hay en el acumulador y un registro / memoria
-        boolean register= utilities.useLoop(traduccion,x);
+        boolean register= Utilities.useLoop(traduccion,x);
         if(register){// es un registro
-            int pos= utilities.getIntG1(x);
+            int pos= Utilities.getIntG1(x);
             int y = registros[pos];
             suma(registros,y);
         }
         else if(x.contains("(")){// es una posicion de memoria
-            utilities.remove(x);
+            Utilities.remove(x);
             //todo hacer conexion con disp externos
         }
 
@@ -59,25 +57,25 @@ public class ALU {
 
     }
     public void resta (int[] registros,String x){// opera lo que hay en el acumulador y un registro / memoria
-        boolean register= utilities.useLoop(traduccion,x);
+        boolean register= Utilities.useLoop(traduccion,x);
         if(register){// es un registro
-            int pos= utilities.getIntG1(x);
+            int pos= Utilities.getIntG1(x);
             int y = registros[pos];
             resta(registros,y);
         }
         else if(x.contains("(")){// es una posicion de memoria
-            utilities.remove(x);
+            Utilities.remove(x);
             //todo hacer conexion con disp externos
         }
 
     }
 
     public void decremento(int[] registros,String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         registros[id]--;
     }
     public void  incremento(int[] registros,String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         registros[id]++;
     }
     public int onesComplement(int n)
@@ -99,9 +97,9 @@ public class ALU {
         registros[0]= registros[0]&x;
     }
     public void and(int[] registros, String x){
-        boolean register= utilities.useLoop(traduccion,x);
+        boolean register= Utilities.useLoop(traduccion,x);
         if(register) {// es un registro
-            int pos= utilities.getIntG1(x);
+            int pos= Utilities.getIntG1(x);
             int y = registros[pos];
             and(registros,y);
         }
@@ -111,9 +109,9 @@ public class ALU {
         registros[0]= registros[0]|x;
     }
     public void or(int[] registros, String x){
-        boolean register= utilities.useLoop(traduccion,x);
+        boolean register= Utilities.useLoop(traduccion,x);
         if(register) {// es un registro
-            int pos= utilities.getIntG1(x);
+            int pos= Utilities.getIntG1(x);
             int y = registros[pos];
             or(registros,y);
         }
@@ -122,15 +120,15 @@ public class ALU {
         registros[0]= registros[0]^x;
     }
     public void xor(int[] registros, String x){
-        boolean register= utilities.useLoop(traduccion,x);
+        boolean register= Utilities.useLoop(traduccion,x);
         if(register) {// es un registro
-            int pos= utilities.getIntG1(x);
+            int pos= Utilities.getIntG1(x);
             int y = registros[pos];
             xor(registros,y);
         }
     }
     public void shiftleft(int[] registros, String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c = aux.charAt(0);
         System.out.println(aux);
@@ -143,7 +141,7 @@ public class ALU {
     }
 
     public void shiftright(int[] registros ,String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux = String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
         System.out.println(c);
@@ -157,7 +155,7 @@ public class ALU {
     }
 
     public void SLA(int[] registros, String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c = aux.charAt(0);
         System.out.println(aux);
@@ -169,7 +167,7 @@ public class ALU {
         System.out.println(registros[id]);
     }
     public void SRL(int[] registros, String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux = String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
         System.out.println(aux);
@@ -182,7 +180,7 @@ public class ALU {
     }
 
     public void compare(int[] registros, String pos){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         if (registros[0]>registros[id]){carry = false; zero= false;}
         else if (registros[0]==registros[id]){carry= false; zero= true;}
         else{carry=true ;zero= false;}
@@ -195,7 +193,7 @@ public class ALU {
     }
 
     public void SET(int[] registros, String pos, int num){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         StringBuilder set = new StringBuilder(aux);
         set.setCharAt(num, '1');
@@ -203,7 +201,7 @@ public class ALU {
     }
 
     public void RESET(int[] registros,int x, String pos,int num){
-        int id = utilities.getIntG1(pos);
+        int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         StringBuilder set = new StringBuilder(aux);
         set.setCharAt(num, '0');

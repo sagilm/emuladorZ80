@@ -2,7 +2,7 @@ package componentes;
 
 import java.util.Arrays;
 
-public class utilities {
+public class Utilities {
     public static boolean useLoop(String[] arr, String targetValue) {
         for(String s: arr){
             if(s.equals(targetValue))

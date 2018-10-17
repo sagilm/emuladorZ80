@@ -1,6 +1,11 @@
 package componentes;
 
 public interface Dispositivo {
-    int[] Datainput= new int[7];
-    int[] memorypos= new int [15];
+
+    int readIN(int[] bus);
+    void writeOUT(int[] bus);
+
+    void pointTo0(int x);
+
+    void saveData(int x);
 }

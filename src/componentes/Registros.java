@@ -1,7 +1,7 @@
 package componentes;
 
 
-public class registros {
+public class Registros {
     int[] inputA=new int[15];// direcciones A0- A15, intercambian entre memori cpu y perifericos
     int[] inputD=new int[7];// direcciones D0-D7, intercambio perifericos- memoria
     boolean mreq= true;// activa en bajo,vse enciende cuando hay una peticion que relaciona memoria cpu
@@ -14,7 +14,7 @@ public class registros {
     boolean INT = true; // si el enable de flip flop IFF! esta habilitado, reconoce la peticion del E/S
     boolean nmi = true; // posiciona al contador de programa (PC) en la dirección 0066h desde donde continua el proceso
     boolean reset= true; // obliga a la CPU a reiniciar  actividad, coloca al contador de programa (PC) en la localidad de inicio de memoria 0000h, desde donde empieza el proceso
-    // registros de proposito general
+    // Registros de proposito general
     int[] direccionadores = new int[2];// 0= IX, 1 = IY
     int[] grupo1= new int[7];//
     int[] grupo2= new int[7];// grupo stack
@@ -24,16 +24,16 @@ public class registros {
         return grupo1[0];
     }
 
-    public void LD( String a, String b){// transfiere datos entre 2 registros
-        int y = utilities.getIntG1(a);
-        int z = utilities.getIntG1(b);
+    public void LD( String a, String b){// transfiere datos entre 2 Registros
+        int y = Utilities.getIntG1(a);
+        int z = Utilities.getIntG1(b);
         grupo1[y]=grupo1[z];
     }
-    public void LD(String a, String b, int x){// se divide el numero en los 2 registros a tiene menor preponderacia que b
+    public void LD(String a, String b, int x){// se divide el numero en los 2 Registros a tiene menor preponderacia que b
         String xp = Integer.toString(x);
         System.out.print(xp+ "\n");
-        int y = utilities.getIntG1(a);
-        int z = utilities.getIntG1(b);
+        int y = Utilities.getIntG1(a);
+        int z = Utilities.getIntG1(b);
         grupo1[y]= Integer.parseInt(xp.substring(xp.length()/2,xp.length()),16);
         grupo1[z]= Integer.parseInt(xp.substring(0,xp.length()/2),16);
         //System.out.print(aux+ "\n");
@@ -48,8 +48,8 @@ public class registros {
             direccionadores[1]=Integer.parseInt(Integer.toHexString(x));
         }
     }
-    public void LD_mem(String a,int x){}// transfiere datos de registros a memoria
-    public void mem_LD(String a,int x){}// transfiere datos de memoria a registros
+    public void LD_mem(String a,int x){}// transfiere datos de Registros a memoria
+    public void mem_LD(String a,int x){}// transfiere datos de memoria a Registros
 
     public void IN(){// parar el dato del bus de entrada a en acumulador
         StringBuilder aux= new StringBuilder();
@@ -61,7 +61,7 @@ public class registros {
         grupo1[0]=Integer.parseInt(aux2,2);
     }
     public void OUT(){// desde el acumulador hacia la memoria
-        int bin=utilities.decimalToBinary(grupo1[0]);
+        int bin= Utilities.decimalToBinary(grupo1[0]);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
         for(int i =0; i < x.length();i++){
             inputD[i]=Character.getNumericValue(x.charAt(i)) ;
@@ -69,29 +69,29 @@ public class registros {
         }
     }
     public  void EXX(String x){// transfiere al grupo de respaldo A->A'
-        int i = utilities.getIntG1(x);
+        int i = Utilities.getIntG1(x);
         grupo1[i]=grupo2[i];
     }
 
 
     public static void main(String[]args){
-        registros m = new registros();
+        Registros m = new Registros();
         int x = 1;
         String y = "IX";
         String z = "C";
-        m.inputA[0]= 0;
-        m.inputA[1]= 1;
-        m.inputA[2]= 1;
-        m.inputA[3]= 1;
-        m.inputA[4]= 1;
-        m.inputA[5]= 1;
-        m.inputA[6]= 1;
-        m.inputA[7]= 1;
+        m.inputD[0]= 0;
+        m.inputD[1]= 1;
+        m.inputD[2]= 1;
+        m.inputD[3]= 1;
+        m.inputD[4]= 1;
+        m.inputD[5]= 1;
+        m.inputD[6]= 1;
+
        // System.out.println(m.direccionadores[1]);
 
 
-        for (int i =0; i<m.inputA.length;i++) {
-            System.out.print(m.inputA[i] + " ");
+        for (int i =0; i<m.inputD.length;i++) {
+            System.out.print(m.inputD[i] + " ");
         }
         System.out.println(" ");
         m.IN();
