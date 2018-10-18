@@ -4,17 +4,7 @@ package componentes;
 public class Registros {
     int[] inputA=new int[15];// direcciones A0- A15, intercambian entre memori cpu y perifericos
     int[] inputD=new int[7];// direcciones D0-D7, intercambio perifericos- memoria
-    boolean mreq= true;// activa en bajo,vse enciende cuando hay una peticion que relaciona memoria cpu
-    boolean reqES= true; // activa en bajo indica que A0-A7 van a tener una direccion valida de lectura escritura
-    boolean RD= true;// activa en bajo indica que la cpu desea leer datos de un disp externo E/S
-    boolean WR = true;// activa en bajo, indica que se va a escribir un dato en memoria
-    boolean Refresh=true;// activa en bajo, indica que A0-A7 contienen una direccion valida de refresco de memoria
-    boolean Halt = true;// se realizo parada por software a espera de NMI o INT para continuar, se ejecutan operaciones NOP mientras
-    boolean wait = true; // activa en falso, detiene el proceso para esperar sincronia con los E/S
-    boolean INT = true; // si el enable de flip flop IFF! esta habilitado, reconoce la peticion del E/S
-    boolean nmi = true; // posiciona al contador de programa (PC) en la dirección 0066h desde donde continua el proceso
-    boolean reset= true; // obliga a la CPU a reiniciar  actividad, coloca al contador de programa (PC) en la localidad de inicio de memoria 0000h, desde donde empieza el proceso
-    // Registros de proposito general
+
     int[] direccionadores = new int[2];// 0= IX, 1 = IY
     int[] grupo1= new int[7];//
     int[] grupo2= new int[7];// grupo stack
@@ -48,8 +38,6 @@ public class Registros {
             direccionadores[1]=Integer.parseInt(Integer.toHexString(x));
         }
     }
-    public void LD_mem(String a,int x){}// transfiere datos de Registros a memoria
-    public void mem_LD(String a,int x){}// transfiere datos de memoria a Registros
 
     public void IN(){// parar el dato del bus de entrada a en acumulador
         StringBuilder aux= new StringBuilder();
@@ -66,6 +54,13 @@ public class Registros {
         for(int i =0; i < x.length();i++){
             inputD[i]=Character.getNumericValue(x.charAt(i)) ;
             //System.out.println(D[i]);
+        }
+    }
+    public void showMemory(int mempos){
+        int bin= Utilities.decimalToBinary(mempos);
+        String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
+        for(int i =0; i < x.length();i++) {
+            inputA[i] = Character.getNumericValue(x.charAt(i));
         }
     }
     public  void EXX(String x){// transfiere al grupo de respaldo A->A'

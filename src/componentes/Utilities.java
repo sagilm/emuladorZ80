@@ -63,5 +63,8 @@ public class Utilities {
         //System.out.println( prosc);
         return prosc;
     }
+    public static void copyData(int[] origen, int[] destino){
+        System.arraycopy(origen,0,destino,0,origen.length);
+    }
 
 }
