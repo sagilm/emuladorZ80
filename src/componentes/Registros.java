@@ -14,9 +14,10 @@ public class Registros {
         return grupo1[0];
     }
 
-    public void LD( String a, String b){// transfiere datos entre 2 Registros
-        int y = Utilities.getIntG1(a);
-        int z = Utilities.getIntG1(b);
+
+    public void LD( String destino, String origen){// transfiere datos entre 2 Registros
+        int y = Utilities.getIntG1(destino);
+        int z = Utilities.getIntG1(origen);
         grupo1[y]=grupo1[z];
     }
     public void LD(String a, String b, int x){// se divide el numero en los 2 Registros a tiene menor preponderacia que b
@@ -30,12 +31,18 @@ public class Registros {
 
 
     }
+
+
     public void LD(String direc, int x){// lee de una direccion de memoria
         if (direc == "IX"){
         direccionadores[0]=Integer.parseInt(Integer.toHexString(x));
         }
         else if (direc== "IY"){
             direccionadores[1]=Integer.parseInt(Integer.toHexString(x));
+        }
+        else{
+           int pos= Utilities.getIntG1(direc);
+           grupo1[pos]=x;
         }
     }
 
@@ -65,7 +72,7 @@ public class Registros {
     }
     public  void EXX(String x){// transfiere al grupo de respaldo A->A'
         int i = Utilities.getIntG1(x);
-        grupo1[i]=grupo2[i];
+        grupo2[i]=grupo1[i];
     }
 
 

@@ -1,5 +1,11 @@
 package componentes;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
 public class Procesador {
     ALU alu = new ALU();
     Registros reg= new Registros();
@@ -33,7 +39,7 @@ public class Procesador {
      Utilities.copyData(mem.Datainput,dataBus);
      Utilities.copyData(dataBus,addressBus);
      reg.IN();
-     reg.LD("A",pos);
+     reg.LD(pos,"A");
         mreq= false;
         reqES=false;
     }
@@ -76,20 +82,101 @@ public class Procesador {
         INT=false;
         wait=false;
         Halt=false;
-        reg.LD("A",pos);
+        reg.LD(pos,"A");
         RD=false;
     }
     public void save_in_memory(String pos, int mempos){
-        
+        mreq= true;
+        reqES= true;
+        reg.showMemory(mempos);
+        reg.LD("A",pos);
+        reg.OUT();
+        Utilities.copyData(reg.inputA,addressBus);
+        Utilities.copyData(addressBus,mem.memoryinput);
+        Utilities.copyData(reg.inputD,mem.Datainput);
+        mem.saveDataInPos();
+        mreq= false;
+        reqES= false;
 
     }
     public void save_in_memory(int dato,int mempos){
+        mreq= true;
+        reqES= true;
+        reg.showMemory(mempos);
+        load_registrer("A",dato);
+        reg.OUT();
+        Utilities.copyData(reg.inputA,addressBus);
+        Utilities.copyData(addressBus,mem.memoryinput);
+        Utilities.copyData(reg.inputD,mem.Datainput);
+        mem.saveDataInPos();
+        mreq= false;
+        reqES= false;
+    }
+    public void load_registrer(String pos, int num){
+        reg.LD(pos,num);
+    }
+    public void sum(){}
+
+    public static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
+        String cadena;
+        FileReader f = new FileReader(archivo);
+        BufferedReader b = new BufferedReader(f);
+        while((cadena = b.readLine())!=null) {
+            System.out.println(cadena);
+            AnalizarCadena(cadena);
+        }
+        b.close();
+    }
+
+    private static void AnalizarCadena(String cadena) {
+        String[] result = cadena.split("\\s");
+        for (int x=0; x<result.length; x++)
+            System.out.println(result[x]);
+        
+
 
     }
 
+
     public static void main (String[]args){
         Procesador z80= new Procesador();
-
+        //z80.load_registrer("A",8);
+        //z80.save_in_memory(21,1);
+        try {
+            muestraContenido("/Users/alexander/Documents/emuladorZ80/test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//"NEG"
+// ,"CPL",
+// "DEC",
+// "INC",
+// "SUB",
+// "ADD",
+// "HALT",
+// "IN",
+// "OUT",
+// "LD",
+// "ORG",
+// "EQU",
+// "JP",
+// "INC",
+// "SET",
+// "RESET"
+// ,"CP",
+// "RL",
+// "RLC",
+// "RR",
+// "RRC",
+//
+// "SLA",
+// "SRL",
+// "AND",
+// "OR",
+// "XOR",
+// "PUSH",
+// "POP",
+// "EXX"
     }
 
 }

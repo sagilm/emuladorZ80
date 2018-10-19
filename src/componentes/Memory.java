@@ -56,6 +56,13 @@ public class Memory implements Dispositivo {
         memory[i]=data;
         System.out.println("guardado en " + i);
     }
+    public void saveDataInPos(){//guarda un dato que viene desde otro lado en una posicion de memoria especifica
+        int data= readIN(Datainput);
+        readPos(memoryinput);
+        int pos= memoryPos;
+        memory[pos]=data;
+        System.out.println("guardado en " + pos);
+    }
 
     @Override
     public void writeOUT(int[] bus) {
@@ -93,9 +100,10 @@ public class Memory implements Dispositivo {
         m.Datainput[5]=0;
         m.Datainput[6]=0;
         int c =m.readIN(m.Datainput);
+        m.readPos(m.memoryinput);
         System.out.println(c);
         m.saveData(c);
-        m.saveData(c);
+        m.saveDataInPos();
         m.writeOUT(m.memoryinput);
     }
 }
