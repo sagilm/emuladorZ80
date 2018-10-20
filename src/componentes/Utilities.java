@@ -39,6 +39,7 @@ public class Utilities {
         }
         String temp = builder.reverse().toString();
         if(temp.length()<8) AdjustLength(temp);
+        if(N==0)return 0;
         return Integer.parseInt(temp);
     }
 

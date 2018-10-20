@@ -21,30 +21,38 @@ public class Registros {
         grupo1[y]=grupo1[z];
     }
     public void LD(String a, String b, int x){// se divide el numero en los 2 Registros a tiene menor preponderacia que b
-        String xp = Integer.toString(x);
-        System.out.print(xp+ "\n");
-        int y = Utilities.getIntG1(a);
-        int z = Utilities.getIntG1(b);
-        grupo1[y]= Integer.parseInt(xp.substring(xp.length()/2,xp.length()),16);
-        grupo1[z]= Integer.parseInt(xp.substring(0,xp.length()/2),16);
-        //System.out.print(aux+ "\n");
+        String xp= String.format("%16s",Integer.toString(x)).replace(' ', '0') ;
+        //System.out.print("LD int :" + xp+ "\n");
+        int a1 = Utilities.getIntG1(a);
+        int b1 = Utilities.getIntG1(b);
+        grupo1[a1]= Integer.parseInt(xp.substring(xp.length()/2,xp.length()));
+        grupo1[b1]= Integer.parseInt(xp.substring(0,xp.length()/2));
+        //System.out.print(grupo1[a1]+ "\n");
+        //System.out.print(grupo1[b1]+ "\n");
 
 
     }
-
+    public int LD16(String a, String b){// a tiene menor preponderancia que b
+        int a1 = Utilities.getIntG1(a);
+        int b1 = Utilities.getIntG1(b);
+        String c =Integer.toString(grupo1[b1])+Integer.toString(grupo1[a1]);
+        //System.out.print("c : " + c);
+        return Integer.parseInt(c);
+    }
 
     public void LD(String direc, int x){// lee de una direccion de memoria
         if (direc == "IX"){
-        direccionadores[0]=Integer.parseInt(Integer.toHexString(x));
+        direccionadores[0]=x;
         }
         else if (direc== "IY"){
-            direccionadores[1]=Integer.parseInt(Integer.toHexString(x));
+            direccionadores[1]=x;
         }
         else{
            int pos= Utilities.getIntG1(direc);
            grupo1[pos]=x;
         }
     }
+
 
     public void IN(){// parar el dato del bus de entrada a en acumulador
         StringBuilder aux= new StringBuilder();
@@ -65,6 +73,7 @@ public class Registros {
     }
     public void showMemory(int mempos){
         int bin= Utilities.decimalToBinary(mempos);
+        System.out.println("bin :" + bin);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
         for(int i =0; i < x.length();i++) {
             inputA[i] = Character.getNumericValue(x.charAt(i));
@@ -98,6 +107,8 @@ public class Registros {
         System.out.println(" ");
         m.IN();
         System.out.println(m.grupo1[0]);
+        m.LD("A","B",2112);
+        m.LD16("A","B");
 
     }
 

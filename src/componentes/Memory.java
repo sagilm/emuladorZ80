@@ -43,6 +43,7 @@ public class Memory implements Dispositivo {
     public int returnPos(int[] bus){// dada una posicion devuelve el dato que encontro ahi
         readPos(bus);
         int aux=memory[memoryPos];
+
         return aux;
     }
 
@@ -63,11 +64,18 @@ public class Memory implements Dispositivo {
         memory[pos]=data;
         System.out.println("guardado en " + pos);
     }
+    public void saveDataInPos(int x){
+        readPos(memoryinput);
+        int pos = memoryPos;
+        memory[pos]=x;
+    }
 
     @Override
-    public void writeOUT(int[] bus) {
+    public void writeOUT(int[] bus) {//lee de la direccion y pone en el pueto lo que el dato de esa pos de memoria
         int pos= returnPos(bus);
+        System.out.println("memoryinput:"+ returnPos(bus));
         int bin= Utilities.decimalToBinary(pos);
+        System.out.println("writeout :" + bin);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
         for(int i =0; i < x.length();i++){
             Datainput[i]=Character.getNumericValue(x.charAt(i)) ;
@@ -76,7 +84,10 @@ public class Memory implements Dispositivo {
         //System.out.println(Arrays.toString(Datainput));
     }
 
-
+    public int writeOUT16(){
+        //System.out.println("memoryinput:"+ returnPos(memoryinput));
+        return returnPos(memoryinput);
+    }
 
 
 
@@ -102,7 +113,7 @@ public class Memory implements Dispositivo {
         int c =m.readIN(m.Datainput);
         m.readPos(m.memoryinput);
         System.out.println(c);
-        m.saveData(c);
+        //m.saveData(c);
         m.saveDataInPos();
         m.writeOUT(m.memoryinput);
     }

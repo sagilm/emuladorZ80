@@ -25,6 +25,26 @@ public class Procesador {
     // Registros de proposito general
     int[] addressBus = new int[15];
     int[] dataBus= new int[7];
+    int inicio=0;
+    int fin=0;
+
+    public int getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(int inicio) {
+        this.inicio = inicio;
+    }
+
+    public int getFin() {
+        return fin;
+    }
+
+    public void setFin(int fin) {
+        this.fin = fin;
+    }
+
+
 
     String[] comandos = {"NEG","CPL","DEC","INC","SUB","ADD","HALT","IN","OUT","LD","ORG","EQU","JP","INC","SET","RESET","CP","RL","RLC","RR","RRC",
     "SLA","SRL","AND","OR","XOR","PUSH","POP", "EXX"};
@@ -33,11 +53,12 @@ public class Procesador {
      reg.showMemory(x);// carga en pin A la direccion de memoria
      mreq=true;
      reqES=true;
+
      Utilities.copyData(reg.inputA,addressBus);
      Utilities.copyData(addressBus,mem.memoryinput);
      mem.writeOUT(mem.memoryinput);
      Utilities.copyData(mem.Datainput,dataBus);
-     Utilities.copyData(dataBus,addressBus);
+     Utilities.copyData(dataBus,reg.inputD);
      reg.IN();
      reg.LD(pos,"A");
         mreq= false;
@@ -55,8 +76,21 @@ public class Procesador {
         reg.IN();
         mreq= false;
         reqES=false;
+
     }
-    public void load_from_disp(){
+    public void load_from_memory16(int mempos, String reg1,String reg2){// trae de la memoria uno de 16bits y lo pone en 2 reg
+        reg.showMemory(mempos);
+        mreq=true;
+        reqES=true;
+        //System.out.println("reg.inputA: "+ reg.inputA);
+        Utilities.copyData(reg.inputA,addressBus);
+        Utilities.copyData(addressBus,mem.memoryinput);
+
+        //System.out.println("mem.writeout: "+ mem.writeOUT16());
+        reg.LD(reg1,reg2,mem.writeOUT16());
+
+    }
+    public void load_from_disp(){// trae de un E/S
         RD=true;
         Halt=true;
         disp.writeOUT(disp.Datainput);
@@ -70,7 +104,7 @@ public class Procesador {
         Halt=false;
         RD=false;
     }
-    public void load_from_disp(String pos){
+    public void load_from_disp(String pos){//trae de un e/S y guarda en un reg
         RD=true;
         Halt=true;
         disp.writeOUT(disp.Datainput);
@@ -85,7 +119,7 @@ public class Procesador {
         reg.LD(pos,"A");
         RD=false;
     }
-    public void save_in_memory(String pos, int mempos){
+    public void save_in_memory(String pos, int mempos){//guerda en memoria en x posicion un registro
         mreq= true;
         reqES= true;
         reg.showMemory(mempos);
@@ -99,7 +133,7 @@ public class Procesador {
         reqES= false;
 
     }
-    public void save_in_memory(int dato,int mempos){
+    public void save_in_memory(int dato,int mempos){// guarda en memoria x numero
         mreq= true;
         reqES= true;
         reg.showMemory(mempos);
@@ -112,71 +146,26 @@ public class Procesador {
         mreq= false;
         reqES= false;
     }
+    public  void save_in_memory16(String rega,String regb,int mempos){// guarda en memoria algo de 16 bits
+        mreq= true;
+        reqES= true;
+        reg.showMemory(mempos);
+        Utilities.copyData(reg.inputA,addressBus);
+        Utilities.copyData(addressBus,mem.memoryinput);
+        mem.saveDataInPos(reg.LD16(rega,regb));
+    }
     public void load_registrer(String pos, int num){
         reg.LD(pos,num);
     }
     public void sum(){}
-
-    public static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
-        String cadena;
-        FileReader f = new FileReader(archivo);
-        BufferedReader b = new BufferedReader(f);
-        while((cadena = b.readLine())!=null) {
-            System.out.println(cadena);
-            AnalizarCadena(cadena);
-        }
-        b.close();
-    }
-
-    private static void AnalizarCadena(String cadena) {
-        String[] result = cadena.split("\\s");
-        for (int x=0; x<result.length; x++)
-            System.out.println(result[x]);
-        
-
-
-    }
 
 
     public static void main (String[]args){
         Procesador z80= new Procesador();
         //z80.load_registrer("A",8);
         //z80.save_in_memory(21,1);
-        try {
-            muestraContenido("/Users/alexander/Documents/emuladorZ80/test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//"NEG"
-// ,"CPL",
-// "DEC",
-// "INC",
-// "SUB",
-// "ADD",
-// "HALT",
-// "IN",
-// "OUT",
-// "LD",
-// "ORG",
-// "EQU",
-// "JP",
-// "INC",
-// "SET",
-// "RESET"
-// ,"CP",
-// "RL",
-// "RLC",
-// "RR",
-// "RRC",
-//
-// "SLA",
-// "SRL",
-// "AND",
-// "OR",
-// "XOR",
-// "PUSH",
-// "POP",
-// "EXX"
+
+
     }
 
 }
