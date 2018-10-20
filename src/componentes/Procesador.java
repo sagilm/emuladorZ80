@@ -182,7 +182,18 @@ public class Procesador {
         alu.resta(reg.grupo1,accm);
         //System.out.println("sum_mem accum :"+reg.grupo1[0]);
     }
+    public  void inc16(String a, String b){ // INC BC C=b menos significativo
+        int num = reg.LD16(b,a);
+        num=num+1;
+        reg.LD(b,a,num);
+    }
 
+    public void dec16(String a, String b) {// DEC BC C=b menos significativo
+        int num = reg.LD16(b,a);
+        if(num>0)num=num-1;
+        else num=0;
+        reg.LD(b,a,num);
+    }
     public static void main (String[]args){
         Procesador z80= new Procesador();
         //z80.load_registrer("A",8);
@@ -195,5 +206,6 @@ public class Procesador {
 
 
     }
+
 
 }

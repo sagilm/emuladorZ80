@@ -83,6 +83,32 @@ public class Loader {
             }
 
         }
+        // "DEC"
+        if(line[0].trim().equals("DEC")){
+            if(line[1].length()==1){// es un numero de 8 bits
+                z80.alu.decremento(z80.reg.grupo1,line[1]);
+            }
+            if(line[1].length()==2){// es un numero de 16bits
+                z80.dec16( Character.toString(line[1].charAt(1)).toString().trim(), Character.toString(line[1].charAt(0)).toString().trim());
+            }
+        }
+        // "INC"
+        if(line[0].trim().equals("INC")){
+            if(line[1].length()==1){// es un numero de 8 bits
+                z80.alu.incremento(z80.reg.grupo1,line[1]);
+            }
+            if(line[1].length()==2){// es un numero de 16bits
+                z80.inc16( Character.toString(line[1].charAt(1)).toString().trim(), Character.toString(line[1].charAt(0)).toString().trim());
+            }
+        }
+        //"NEG"
+        if(line[0].trim().equals("NEG")){
+            z80.alu.twocomplement(z80.reg.grupo1[0]);
+        }
+        // ,"CPL",
+        if(line[0].trim().equals("CPL")){
+            z80.alu.onesComplement(z80.reg.grupo1[0]);
+        }
         //org
         if(line[0].trim().equals("ORG")){
             System.out.println("ENCONTRE ORG");
@@ -91,14 +117,8 @@ public class Loader {
         if(line[0].trim().equals("EQU")){
 
         }
-        //"NEG"
-        if(line[0].trim().equals("NEG")){}
-        // ,"CPL",
-        if(line[0].trim().equals("CPL")){}
-        // "DEC"
-        if(line[0].trim().equals("DEC")){}
-        // "INC"
-        if(line[0].trim().equals("INC")){}
+
+
         // "SUB"
         if(line[0].trim().equals("SUB")){
             int mempos=0;

@@ -77,7 +77,7 @@ public class Registros {
             //System.out.println(D[i]);
         }
     }
-    public void showMemory(int mempos){
+    public void showMemory(int mempos){// despliega contenido en A0-15
         for(int pata=0;pata<inputA.length;pata ++){
             inputA[pata]=0;
         }

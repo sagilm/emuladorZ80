@@ -92,7 +92,8 @@ public class ALU {
 
     public void decremento(int[] registros,String pos){
         int id = Utilities.getIntG1(pos);
-        registros[id]--;
+        if(registros[id]>0)registros[id]--;
+        else registros[id]=0;
     }
     public void  incremento(int[] registros,String pos){
         int id = Utilities.getIntG1(pos);
