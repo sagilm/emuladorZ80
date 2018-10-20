@@ -25,11 +25,13 @@ public class Utilities {
 
         String repeated = new String(new char[8-s.length()]).replace("\0","0");
         s= repeated+s;
-        System.out.println(s);
+        //System.out.println(s);
         return repeated+ s;
 
     }
     public static int decimalToBinary(int N) {
+        if(N==0)return 0;
+        System.out.println("utilities. dec to bin :" + N);
         StringBuilder builder = new StringBuilder();
         int base = 2;
         while (N != 0) {
@@ -39,8 +41,10 @@ public class Utilities {
         }
         String temp = builder.reverse().toString();
         if(temp.length()<8) AdjustLength(temp);
-        if(N==0)return 0;
-        return Integer.parseInt(temp);
+        int aux=Integer.parseInt(temp);
+
+        System.out.println("utilities. dec to bin .temp:" + aux);
+        return aux;
     }
 
 

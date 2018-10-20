@@ -20,6 +20,12 @@ public class Registros {
         int z = Utilities.getIntG1(origen);
         grupo1[y]=grupo1[z];
     }
+    public void LD2( String destino, String origen){// transfiere datos entre 2 Registros
+        int y = Utilities.getIntG1(destino);
+        int z = Utilities.getIntG1(origen);
+        grupo2[y]=grupo2[z];
+        System.out.println("se movio a : "+ Utilities.getLetraG1(y) +" valor :" +grupo2[z]);
+    }
     public void LD(String a, String b, int x){// se divide el numero en los 2 Registros a tiene menor preponderacia que b
         String xp= String.format("%16s",Integer.toString(x)).replace(' ', '0') ;
         //System.out.print("LD int :" + xp+ "\n");
@@ -29,7 +35,6 @@ public class Registros {
         grupo1[b1]= Integer.parseInt(xp.substring(0,xp.length()/2));
         //System.out.print(grupo1[a1]+ "\n");
         //System.out.print(grupo1[b1]+ "\n");
-
 
     }
     public int LD16(String a, String b){// a tiene menor preponderancia que b
@@ -62,6 +67,7 @@ public class Registros {
         String aux2= aux.reverse().toString();
         //System.out.println(aux2);
         grupo1[0]=Integer.parseInt(aux2,2);
+        System.out.println("reg.grupo1[0] :"+ grupo1[0]);
     }
     public void OUT(){// desde el acumulador hacia la memoria
         int bin= Utilities.decimalToBinary(grupo1[0]);
@@ -72,8 +78,12 @@ public class Registros {
         }
     }
     public void showMemory(int mempos){
+        for(int pata=0;pata<inputA.length;pata ++){
+            inputA[pata]=0;
+        }
+        System.out.println("reg.mempos :" + mempos);
         int bin= Utilities.decimalToBinary(mempos);
-        System.out.println("bin :" + bin);
+        System.out.println("reg.showmemory :" + bin);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
         for(int i =0; i < x.length();i++) {
             inputA[i] = Character.getNumericValue(x.charAt(i));
@@ -82,6 +92,10 @@ public class Registros {
     public  void EXX(String x){// transfiere al grupo de respaldo A->A'
         int i = Utilities.getIntG1(x);
         grupo2[i]=grupo1[i];
+    }
+    public  void EXX2(String x){// transfiere al grupo de respaldo A->A'
+        int i = Utilities.getIntG1(x);
+        grupo1[i]=grupo2[i];
     }
 
 

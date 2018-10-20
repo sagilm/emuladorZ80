@@ -10,7 +10,7 @@ public class Loader {
     Procesador z80 = new Procesador();
     String traduccion ="ABCDEHL";
     Pattern numHex=Pattern.compile("^\\( && [A-F0-9]H");
-
+    Pattern memorypos= Pattern.compile("\\([A-F0_9]H\\)");
     public  void muestraContenido(String archivo) throws FileNotFoundException, IOException {
         String cadena;
         FileReader f = new FileReader(archivo);
@@ -24,37 +24,6 @@ public class Loader {
 
     private  void AnalizarCadena(String cadena) {
         String[] line = cadena.trim().split("\\s");
-        //org
-
-        if(line[0].trim().equals("ORG")){
-            System.out.println("ENCONTRE ORG");
-        }
-        //equ
-        if(line[0].trim().equals("EQU")){
-
-        }
-        //"NEG"
-        if(line[0].trim().equals("NEG")){}
-        // ,"CPL",
-        if(line[0].trim().equals("CPL")){}
-        // "DEC"
-        if(line[0].trim().equals("DEC")){}
-        // "INC"
-        if(line[0].trim().equals("INC")){}
-        // "SUB"
-        if(line[0].trim().equals("SUB")){}
-        // "ADD"
-        if(line[0].trim().equals("ADD")){}
-        // "HALT"
-        if(line[0].trim().equals("HALT")){}
-        // "IN"
-        if(line[0].trim().equals("IN")){
-            z80.reg.IN();
-        }
-        // "OUT"
-        if(line[0].trim().equals("OUT")){
-            z80.reg.OUT();
-        }
         // "LD"
         if(line[0].trim().equals("LD")){
             int mempos=0;
@@ -92,6 +61,78 @@ public class Loader {
                 }
             }
         }
+        // "ADD"
+        if(line[0].trim().equals("ADD")){
+            int mempos=0;
+            int value=0;
+            String[] data= line[1].trim().split(",");
+            Matcher m1= numHex.matcher(data[1]);
+            Matcher m2 = memorypos.matcher(data[1]);
+            if(m1.find()){//es un numero         ADD A,xxH
+                String aux= data[0].substring(0,data[0].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.suma(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// es una posicion de memoria     ADD A,(xxH)
+                String aux= data[0].substring(1,data[0].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.sum_mem(mempos);
+            }
+            else{// es un registro     ADD A,[A~L]
+                z80.alu.suma(z80.reg.grupo1,data[1]);
+            }
+
+        }
+        //org
+        if(line[0].trim().equals("ORG")){
+            System.out.println("ENCONTRE ORG");
+        }
+        //equ
+        if(line[0].trim().equals("EQU")){
+
+        }
+        //"NEG"
+        if(line[0].trim().equals("NEG")){}
+        // ,"CPL",
+        if(line[0].trim().equals("CPL")){}
+        // "DEC"
+        if(line[0].trim().equals("DEC")){}
+        // "INC"
+        if(line[0].trim().equals("INC")){}
+        // "SUB"
+        if(line[0].trim().equals("SUB")){
+            int mempos=0;
+            int value=0;
+            String[] data= line[1].trim().split(",");
+            Matcher m1= numHex.matcher(data[1]);
+            Matcher m2 = memorypos.matcher(data[1]);
+            if(m1.find()){//es un numero         ADD A,xxH
+                String aux= data[0].substring(0,data[0].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.resta(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// es una posicion de memoria     ADD A,(xxH)
+                String aux= data[0].substring(1,data[0].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.res_mem(mempos);
+            }
+            else{// es un registro     ADD A,[A~L]
+                z80.alu.resta(z80.reg.grupo1,data[1]);
+            }
+
+        }
+
+        // "HALT"
+        if(line[0].trim().equals("HALT")){}
+        // "IN"
+        if(line[0].trim().equals("IN")){
+            z80.reg.IN();
+        }
+        // "OUT"
+        if(line[0].trim().equals("OUT")){
+            z80.reg.OUT();
+        }
+
         // "JP"
         if(line[0].trim().equals("JP")){}
         // "INC"

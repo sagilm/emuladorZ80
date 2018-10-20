@@ -72,8 +72,9 @@ public class Procesador {
         Utilities.copyData(addressBus,mem.memoryinput);
         mem.writeOUT(mem.memoryinput);
         Utilities.copyData(mem.Datainput,dataBus);
-        Utilities.copyData(dataBus,addressBus);
+        Utilities.copyData(dataBus,reg.inputD);
         reg.IN();
+        System.out.println("reg 0 :"+reg.grupo1[0]);
         mreq= false;
         reqES=false;
 
@@ -119,7 +120,7 @@ public class Procesador {
         reg.LD(pos,"A");
         RD=false;
     }
-    public void save_in_memory(String pos, int mempos){//guerda en memoria en x posicion un registro
+    public void save_in_memory(String pos, int mempos){//guarda en memoria en x posicion un registro
         mreq= true;
         reqES= true;
         reg.showMemory(mempos);
@@ -137,6 +138,7 @@ public class Procesador {
         mreq= true;
         reqES= true;
         reg.showMemory(mempos);
+        //System.out.println("mempos :" + mempos);
         load_registrer("A",dato);
         reg.OUT();
         Utilities.copyData(reg.inputA,addressBus);
@@ -157,13 +159,39 @@ public class Procesador {
     public void load_registrer(String pos, int num){
         reg.LD(pos,num);
     }
-    public void sum(){}
+    public void sum_mem(int mempos){// carga 2 datos
+        // System.out.println("sum_mem accum :"+reg.grupo1[0]);
 
+        int accm=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        load_from_memory(mempos);//
+        //load_from_memory(mempos2);//
+        int accm2=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        //System.out.println("sum_mem accum :"+reg.grupo1[0]);
+        //System.out.println("accm: "+accm);
+        //System.out.println("accm2: "+accm2);
+        alu.suma(reg.grupo1,accm);
+        //System.out.println("sum_mem accum :"+reg.grupo1[0]);
+
+    }
+
+    public void res_mem(int mempos) {
+        //System.out.println("sum_mem accum :"+reg.grupo1[0]);
+        int accm=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        load_from_memory(mempos);//
+        int accm2=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        alu.resta(reg.grupo1,accm);
+        //System.out.println("sum_mem accum :"+reg.grupo1[0]);
+    }
 
     public static void main (String[]args){
         Procesador z80= new Procesador();
         //z80.load_registrer("A",8);
-        //z80.save_in_memory(21,1);
+        z80.save_in_memory(2,200);
+        z80.save_in_memory(3,5);
+        System.out.println("reg.grupo1: ");
+        z80.load_from_memory(5);
+        System.out.println("saqui inicia la suma");
+        z80.sum_mem(200);
 
 
     }

@@ -5,6 +5,7 @@ LD C,(0A2H)
 LD (0A2H),CB 
 LD A,C 
 ADD A,B 
+SUB A,C
 OUT (PORT1),A 
 HALT
 END

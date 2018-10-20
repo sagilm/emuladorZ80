@@ -3,6 +3,27 @@ package componentes;
 public class ALU {
     boolean paridad;// true cuando el complemento a 2 produce un carry
     boolean sign;// true cuando el bil mas significativo == 1
+
+    public boolean isParidad() {
+        return paridad;
+    }
+
+    public boolean isSign() {
+        return sign;
+    }
+
+    public boolean isZero() {
+        return zero;
+    }
+
+    public boolean isCarry() {
+        return carry;
+    }
+
+    public boolean isZ() {
+        return Z;
+    }
+
     boolean zero;// cuando el resultadod e la operacion es 0
     boolean carry;// carry en suma o resta
     boolean Z;// resultado verificaicon bit
@@ -29,9 +50,13 @@ public class ALU {
 
     public void suma(int[] registros, int x){// opera lo que hay en el acumulador y un numero
         int a1= registros[0];
-        registros[0]=a1+x;
+       // System.out.println("alu.a1: "+ registros[0]);
+        int sum= registros[0]+x;
+        //System.out.println("alu.x: "+ x);
+        registros[0]=sum;
         if(registros[0]>255)carry=true;
         if(registros[0]==0)zero=true;
+        //System.out.println("alu.suma: "+ registros[0]);
 
 
     }
@@ -39,12 +64,10 @@ public class ALU {
         boolean register= Utilities.useLoop(traduccion,x);
         if(register){// es un registro
             int pos= Utilities.getIntG1(x);
+            //System.out.println("alu.suma.pos: "+ pos);
             int y = registros[pos];
+           // System.out.println("alu.suma.y: "+ registros[pos]);
             suma(registros,y);
-        }
-        else if(x.contains("(")){// es una posicion de memoria
-            Utilities.remove(x);
-            //todo hacer conexion con disp externos
         }
 
     }
@@ -63,10 +86,7 @@ public class ALU {
             int y = registros[pos];
             resta(registros,y);
         }
-        else if(x.contains("(")){// es una posicion de memoria
-            Utilities.remove(x);
-            //todo hacer conexion con disp externos
-        }
+
 
     }
 
