@@ -194,6 +194,21 @@ public class Procesador {
         else num=0;
         reg.LD(b,a,num);
     }
+    public void and_mem(int mempos){
+        int accm=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        load_from_memory(mempos);//
+        alu.and(reg.grupo1,accm);
+    }
+    public void or_mem(int mempos){
+        int accm=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        load_from_memory(mempos);//
+        alu.or(reg.grupo1,accm);
+    }
+    public void xor_mem(int mempos){
+        int accm=reg.getAcumulador();//lo que esta en el acumulador en este momento
+        load_from_memory(mempos);//
+        alu.xor(reg.grupo1,accm);
+    }
     public static void main (String[]args){
         Procesador z80= new Procesador();
         //z80.load_registrer("A",8);

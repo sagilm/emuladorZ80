@@ -9,8 +9,10 @@ import java.util.regex.*;
 public class Loader {
     Procesador z80 = new Procesador();
     String traduccion ="ABCDEHL";
-    Pattern numHex=Pattern.compile("^\\( && [A-F0-9]H");
-    Pattern memorypos= Pattern.compile("\\([A-F0_9]H\\)");
+    Pattern numHex=Pattern.compile("^[A-Z0-9]*H(?!\\()$");
+    Pattern memorypos= Pattern.compile("\\([A-Z0-9]*H\\)$");
+    Pattern regPos= Pattern.compile("^[ABCDEHL](?<!H)");
+
     public  void muestraContenido(String archivo) throws FileNotFoundException, IOException {
         String cadena;
         FileReader f = new FileReader(archivo);
@@ -74,7 +76,8 @@ public class Loader {
                 z80.alu.suma(z80.reg.grupo1,value);
             }
             if(m2.find()){// es una posicion de memoria     ADD A,(xxH)
-                String aux= data[0].substring(1,data[0].indexOf("H"));
+                System.out.println(data[1]);
+                String aux= data[1].substring(1,data[1].indexOf("H"));
                 mempos= Integer.parseInt(aux,16);
                 z80.sum_mem(mempos);
             }
@@ -89,6 +92,7 @@ public class Loader {
                 z80.alu.decremento(z80.reg.grupo1,line[1]);
             }
             if(line[1].length()==2){// es un numero de 16bits
+                System.out.println(Character.toString(line[1].charAt(1)).toString().trim());
                 z80.dec16( Character.toString(line[1].charAt(1)).toString().trim(), Character.toString(line[1].charAt(0)).toString().trim());
             }
         }
@@ -109,15 +113,6 @@ public class Loader {
         if(line[0].trim().equals("CPL")){
             z80.alu.onesComplement(z80.reg.grupo1[0]);
         }
-        //org
-        if(line[0].trim().equals("ORG")){
-            System.out.println("ENCONTRE ORG");
-        }
-        //equ
-        if(line[0].trim().equals("EQU")){
-
-        }
-
 
         // "SUB"
         if(line[0].trim().equals("SUB")){
@@ -141,9 +136,6 @@ public class Loader {
             }
 
         }
-
-        // "HALT"
-        if(line[0].trim().equals("HALT")){}
         // "IN"
         if(line[0].trim().equals("IN")){
             z80.reg.IN();
@@ -152,11 +144,71 @@ public class Loader {
         if(line[0].trim().equals("OUT")){
             z80.reg.OUT();
         }
-
+        // "AND"
+        if(line[0].trim().equals("AND")){
+            int mempos=0;
+            int value=0;
+            Matcher m1= numHex.matcher(line[1].trim());
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m1.find()){// es un numero
+                String aux= line[1].substring(0,line[1].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.and(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// es posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.and_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.and(z80.reg.grupo1,line[1]);
+            }
+        }
+        // "OR"
+        if(line[0].trim().equals("OR")){
+            int mempos=0;
+            int value=0;
+            Matcher m1= numHex.matcher(line[1].trim());
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m1.find()){// es un numero
+                String aux= line[1].substring(0,line[1].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.or(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// es posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.or_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.or(z80.reg.grupo1,line[1]);
+            }
+        }
+        // "XOR"
+        if(line[0].trim().equals("XOR")){
+            int mempos=0;
+            int value=0;
+            Matcher m1= numHex.matcher(line[1].trim());
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m1.find()){// es un numero
+                String aux= line[1].substring(0,line[1].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.xor(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// es posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.xor_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.xor(z80.reg.grupo1,line[1]);
+            }
+        }
         // "JP"
         if(line[0].trim().equals("JP")){}
-        // "INC"
-        if(line[0].trim().equals("INC")){}
         // "SET"
         if(line[0].trim().equals("SET")){}
         // "RESET"
@@ -175,19 +227,22 @@ public class Loader {
         if(line[0].trim().equals("SLA")){}
         // "SRL"
         if(line[0].trim().equals("SLR")){}
-        // "AND"
-        if(line[0].trim().equals("AND")){}
-        // "OR"
-        if(line[0].trim().equals("OR")){}
-        // "XOR"
-        if(line[0].trim().equals("XOR")){}
         // "PUSH"
         if(line[0].trim().equals("PUSH")){}
         // "POP"
         if(line[0].trim().equals("POP")){}
         // "EXX"
         if(line[0].trim().equals("EXX")){}
+        //org
+        if(line[0].trim().equals("ORG")){
+            System.out.println("ENCONTRE ORG");
+        }
+        //equ
+        if(line[0].trim().equals("EQU")){
 
+        }
+        // "HALT"
+        if(line[0].trim().equals("HALT")){}
         /*for (int x=0; x<line.length; x++)
             System.out.println(line[x]+ " " +x);
 
