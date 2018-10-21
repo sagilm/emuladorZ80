@@ -1,14 +1,16 @@
 package componentes;
 
 
+import java.util.Stack;
+
 public class Registros {
     int[] inputA=new int[15];// direcciones A0- A15, intercambian entre memori cpu y perifericos
     int[] inputD=new int[7];// direcciones D0-D7, intercambio perifericos- memoria
-
+    Stack<Integer> stack= new Stack<Integer>();
     int[] direccionadores = new int[2];// 0= IX, 1 = IY
     int[] grupo1= new int[7];//
     int[] grupo2= new int[7];// grupo stack
-
+    int SP=0;
 
     public  int getAcumulador(){
         return grupo1[0];
@@ -97,7 +99,14 @@ public class Registros {
         int i = Utilities.getIntG1(x);
         grupo1[i]=grupo2[i];
     }
-
+    public void push(int x){
+    SP++;
+    stack.push(x);
+    }
+    public int  pop(){
+    SP--;
+    return stack.pop();
+    }
 
     public static void main(String[]args){
         Registros m = new Registros();

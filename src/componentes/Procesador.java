@@ -209,15 +209,52 @@ public class Procesador {
         load_from_memory(mempos);//
         alu.xor(reg.grupo1,accm);
     }
+    public void shiftleft_mem(int mempos){
+        int accm=reg.getAcumulador();
+        load_from_memory(mempos);
+        alu.shiftleft(reg.grupo1,"A");
+    }
+    public void shiftright_mem(int mempos){
+        load_from_memory(mempos);
+        alu.shiftright(reg.grupo1,"A");
+    }
+    public void SLA_mem(int mempos){
+        load_from_memory(mempos);
+        alu.SLA(reg.grupo1,"A");
+    }
+    public void SLR_mem(int mempos){
+        load_from_memory(mempos);
+        alu.SRL(reg.grupo1,"A");
+    }
+    public void CP_mem(int mempos){
+        int accm=reg.getAcumulador();
+        alu.compare(reg.grupo1,accm);
+
+    }
+    public void BIT_mem(int mempos , int pos){
+        load_from_memory(mempos);
+        alu.BIT(reg.grupo1[0],pos);
+        save_in_memory("A",mempos);
+    }
+    public void SET_mem(int mempos, int pos){
+        load_from_memory(mempos);
+        alu.SET(reg.grupo1,pos);
+        save_in_memory("A",mempos);
+    }
+    public void RESET_mem(int mempos, int pos){
+        load_from_memory(mempos);
+        alu.RESET(reg.grupo1,pos);
+        save_in_memory("A",mempos);
+    }
     public static void main (String[]args){
         Procesador z80= new Procesador();
         //z80.load_registrer("A",8);
         z80.save_in_memory(2,200);
-        z80.save_in_memory(3,5);
-        System.out.println("reg.grupo1: ");
-        z80.load_from_memory(5);
+        //z80.save_in_memory(3,5);
+        //System.out.println("reg.grupo1: ");
+        //z80.load_from_memory(200);
         System.out.println("saqui inicia la suma");
-        z80.sum_mem(200);
+        z80.shiftleft_mem(200);
 
 
     }

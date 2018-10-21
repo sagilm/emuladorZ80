@@ -148,6 +148,17 @@ public class ALU {
             xor(registros,y);
         }
     }
+    public void shiftleft(int[] registros, int x){
+        String aux= String.format("%8s",Integer.toBinaryString(x)).replace(' ', '0') ;
+        char c = aux.charAt(0);
+        System.out.println(aux);
+        String rotado= aux.substring(1)+c;
+        System.out.println(rotado);
+        if(Integer.parseInt(String.valueOf(c))==1) carry=true;
+        else carry=false;
+        registros[0]=Integer.parseInt(rotado.toString(),2) ;
+        System.out.println(registros[0]);
+    }
     public void shiftleft(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
@@ -160,7 +171,18 @@ public class ALU {
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
         System.out.println(registros[id]);
     }
-
+    public void shiftright(int[] registros ,int value){
+        String aux = String.format("%8s",Integer.toBinaryString(value)).replace(' ', '0') ;
+        char c= aux.charAt(aux.length()-1);
+        System.out.println(c);
+        System.out.println(aux);
+        String rotado= c+aux.substring(0,aux.length()-1);
+        System.out.println(rotado);
+        if(Integer.parseInt(String.valueOf(c))==1) carry=true;
+        else carry=false;
+        registros[0]=Integer.parseInt(rotado.toString(),2) ;
+        System.out.println(registros[0]);
+    }
     public void shiftright(int[] registros ,String pos){
         int id = Utilities.getIntG1(pos);
         String aux = String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
@@ -174,7 +196,17 @@ public class ALU {
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
         System.out.println(registros[id]);
     }
-
+    public void SLA(int[] registros, int value){
+        String aux= String.format("%8s",Integer.toBinaryString(value)).replace(' ', '0') ;
+        char c = aux.charAt(0);
+        System.out.println(aux);
+        String rotado= aux.substring(1)+'0';
+        System.out.println(rotado);
+        if(Integer.parseInt(String.valueOf(c))==1) carry=true;
+        else carry=false;
+        registros[0]=Integer.parseInt(rotado.toString(),2) ;
+        System.out.println(registros[0]);
+    }
     public void SLA(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
@@ -186,6 +218,17 @@ public class ALU {
         else carry=false;
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
         System.out.println(registros[id]);
+    }
+    public void SRL(int[] registros, int x){
+        String aux = String.format("%8s",Integer.toBinaryString(x)).replace(' ', '0') ;
+        char c= aux.charAt(aux.length()-1);
+        System.out.println(aux);
+        String rotado= '0'+aux.substring(0,aux.length()-1);
+        System.out.println(rotado);
+        if(Integer.parseInt(String.valueOf(c))==1) carry=true;
+        else carry=false;
+        registros[0]=Integer.parseInt(rotado.toString(),2) ;
+        System.out.println(registros[0]);
     }
     public void SRL(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
@@ -200,17 +243,36 @@ public class ALU {
         System.out.println(registros[id]);
     }
 
+    public void compare(int[] registros, int x){
+        if (registros[0]>x){carry = false; zero= false;}
+        else if (registros[0]==x){carry= false; zero= true;}
+        else{carry=true ;zero= false;}
+    }
     public void compare(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         if (registros[0]>registros[id]){carry = false; zero= false;}
         else if (registros[0]==registros[id]){carry= false; zero= true;}
         else{carry=true ;zero= false;}
     }
+
     public void BIT(int x, int pos){
         String aux= String.format("%8s",Integer.toBinaryString(x)).replace(' ', '0') ;
         char c= aux.charAt(pos);
         if(Integer.parseInt(String.valueOf(c))==1) Z=true;
         else Z=false;
+    }
+    public void BIT(int[] registro, String reg,int bit){
+        int id = Utilities.getIntG1(reg);
+        String aux= String.format("%8s",Integer.toBinaryString(registro[id])).replace(' ', '0') ;
+        char c= aux.charAt(bit);
+        if(Integer.parseInt(String.valueOf(c))==1) Z=true;
+        else Z=false;
+    }
+    public void SET(int[] registros, int pos){
+        String aux= String.format("%8s",Integer.toBinaryString(registros[0]).replace(' ', '0')) ;
+        StringBuilder set = new StringBuilder(aux);
+        set.setCharAt(pos, '1');
+        registros[0]=Integer.parseInt(set.toString(),2);
     }
 
     public void SET(int[] registros, String pos, int num){
@@ -221,7 +283,13 @@ public class ALU {
         registros[id]=Integer.parseInt(set.toString(),2);
     }
 
-    public void RESET(int[] registros,int x, String pos,int num){
+    public void RESET(int[] registros, int pos){
+        String aux= String.format("%8s",Integer.toBinaryString(registros[0])).replace(' ', '0') ;
+        StringBuilder set = new StringBuilder(aux);
+        set.setCharAt(pos, '0');
+        registros[0]=Integer.parseInt(set.toString(),2);
+    }
+    public void RESET(int[] registros, String pos,int num){
         int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         StringBuilder set = new StringBuilder(aux);

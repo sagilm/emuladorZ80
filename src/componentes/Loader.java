@@ -207,39 +207,184 @@ public class Loader {
                 z80.alu.xor(z80.reg.grupo1,line[1]);
             }
         }
-        // "JP"
-        if(line[0].trim().equals("JP")){}
-        // "SET"
-        if(line[0].trim().equals("SET")){}
-        // "RESET"
-        if(line[0].trim().equals("RESET")){}
-        // "CP"
-        if(line[0].trim().equals("CP")){}
         // "RL"
-        if(line[0].trim().equals("RL")){}
+        if(line[0].trim().equals("RL")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.shiftleft_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.shiftleft(z80.reg.grupo1,line[1]);
+            }
+        }
         // "RLC"
-        if(line[0].trim().equals("RLC")){}
+        if(line[0].trim().equals("RLC")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.shiftleft_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.shiftleft(z80.reg.grupo1,line[1]);
+            }
+        }
         // "RR"
-        if(line[0].trim().equals("RR")){}
+        if(line[0].trim().equals("RR")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.shiftright_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.shiftright(z80.reg.grupo1,line[1]);
+            }
+        }
         // "RRC"
-        if(line[0].trim().equals("RRC")){}
+        if(line[0].trim().equals("RRC")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.shiftright_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.shiftright(z80.reg.grupo1,line[1]);
+            }
+        }
         // "SLA"
-        if(line[0].trim().equals("SLA")){}
+        if(line[0].trim().equals("SLA")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.SLA_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.SLA(z80.reg.grupo1,line[1]);
+            }
+        }
         // "SRL"
-        if(line[0].trim().equals("SLR")){}
+        if(line[0].trim().equals("SLR")){
+            int mempos=0;
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            if(m2.find()){// es una posicion de memoria
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.SLR_mem(mempos);
+            }
+            if(m3.find()){
+                z80.alu.SRL(z80.reg.grupo1,line[1]);
+            }
+        }
+        // "SET"
+        if(line[0].trim().equals("SET")){
+            int mempos=0;
+            String[] data= line[1].trim().split(",");
+            Matcher m2= memorypos.matcher(data[1].trim());
+            Matcher m3= regPos.matcher((data[1].trim()));
+            if(m2.find()){// mempos
+                String aux= data[1].substring(1,data[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.SET_mem(mempos,Integer.parseInt(data[0]));
+            }
+            if(m3.find()){// registro
+                z80.alu.SET(z80.reg.grupo1,data[1],Integer.parseInt(data[0]));
+            }
+
+        }
+        // "RESET"
+        if(line[0].trim().equals("RESET")){
+            int mempos=0;
+            String[] data= line[1].trim().split(",");
+            Matcher m2= memorypos.matcher(data[1].trim());
+            Matcher m3= regPos.matcher((data[1].trim()));
+            if(m2.find()){// mempos
+                String aux= data[1].substring(1,data[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.RESET_mem(mempos,Integer.parseInt(data[0]));
+            }
+            if(m3.find()){// registro
+                z80.alu.RESET(z80.reg.grupo1,data[1],Integer.parseInt(data[0]));
+            }
+        }
+        // "CP"
+        if(line[0].trim().equals("CP")){
+            Matcher m1= numHex.matcher(line[1].trim());
+            Matcher m2= memorypos.matcher(line[1].trim());
+            Matcher m3= regPos.matcher((line[1].trim()));
+            int mempos=0;
+            int value=0;
+            if(m1.find()){//numero
+                String aux= line[1].substring(0,line[1].indexOf("H"));
+                value= Integer.parseInt(aux,16);
+                z80.alu.compare(z80.reg.grupo1,value);
+            }
+            if(m2.find()){// mempos
+                String aux= line[1].substring(1,line[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.CP_mem(mempos);
+            }
+            if(m3.find()){// registro
+                z80.alu.compare(z80.reg.grupo1,line[1]);
+            }
+
+        }
+        // "BIT"
+        if(line[0].trim().equals("BIT")){
+            int mempos=0;
+            String[] data= line[1].trim().split(",");
+            Matcher m2= memorypos.matcher(data[1].trim());
+            Matcher m3= regPos.matcher((data[1].trim()));
+            if(m2.find()){// mempos
+                String aux= data[1].substring(1,data[1].indexOf("H"));
+                mempos= Integer.parseInt(aux,16);
+                z80.BIT_mem(mempos,Integer.parseInt(data[0]));
+            }
+            if(m3.find()){// registro
+                z80.alu.BIT(z80.reg.grupo1,data[1],Integer.parseInt(data[0]));
+            }
+        }
+
+
         // "PUSH"
-        if(line[0].trim().equals("PUSH")){}
+        if(line[0].trim().equals("PUSH")){
+            int id = Utilities.getIntG1(line[1]);
+            z80.reg.push(z80.reg.grupo1[id]);
+        }
         // "POP"
-        if(line[0].trim().equals("POP")){}
+        if(line[0].trim().equals("POP")){
+            z80.reg.pop();
+        }
         // "EXX"
-        if(line[0].trim().equals("EXX")){}
+        if(line[0].trim().equals("EXX")){
+            z80.reg.EXX(line[1]);
+        }
         //org
         if(line[0].trim().equals("ORG")){
-            System.out.println("ENCONTRE ORG");
+            String aux= line[1].substring(1,line[1].indexOf("H"));
+            int mempos= Integer.parseInt(aux,16);
+            z80.load_from_memory(mempos);
         }
         //equ
         if(line[0].trim().equals("EQU")){
-
+            String aux= line[1].substring(1,line[1].indexOf("H"));
+            int mempos= Integer.parseInt(aux,16);
+            z80.save_in_memory("A", mempos);
         }
         // "HALT"
         if(line[0].trim().equals("HALT")){}
