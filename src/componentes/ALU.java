@@ -56,7 +56,7 @@ public class ALU {
         registros[0]=sum;
         if(registros[0]>255)carry=true;
         if(registros[0]==0)zero=true;
-        //System.out.println("alu.suma: "+ registros[0]);
+        System.out.println("suma: "+ registros[0]);
 
 
     }
@@ -76,7 +76,7 @@ public class ALU {
         registros[0]=a1-x;
         if(registros[0]>255)carry=true;
         if(registros[0]==0)zero=true;
-
+        System.out.println("resta: "+ registros[0]);
 
     }
     public void resta (int[] registros,String x){// opera lo que hay en el acumulador y un registro / memoria
@@ -94,10 +94,12 @@ public class ALU {
         int id = Utilities.getIntG1(pos);
         if(registros[id]>0)registros[id]--;
         else registros[id]=0;
+        System.out.println("valor tras DEC: "+ registros[id]);
     }
     public void  incremento(int[] registros,String pos){
         int id = Utilities.getIntG1(pos);
         registros[id]++;
+        System.out.println("valor tras INC: "+ registros[id]);
     }
     public int onesComplement(int n)
     {
@@ -116,6 +118,7 @@ public class ALU {
     }
     public void and(int[]registros,int x){
         registros[0]= registros[0]&x;
+        System.out.println("valor tras AND: "+ registros[0]);
     }
     public void and(int[] registros, String x){
         boolean register= Utilities.useLoop(traduccion,x);
@@ -128,6 +131,7 @@ public class ALU {
 
     public void or(int[]registros,int x){
         registros[0]= registros[0]|x;
+        System.out.println("valor tras OR: "+ registros[0]);
     }
     public void or(int[] registros, String x){
         boolean register= Utilities.useLoop(traduccion,x);
@@ -139,6 +143,7 @@ public class ALU {
     }
     public void xor(int[]registros,int x){
         registros[0]= registros[0]^x;
+        System.out.println("valor tras XOR: "+ registros[0]);
     }
     public void xor(int[] registros, String x){
         boolean register= Utilities.useLoop(traduccion,x);
@@ -151,96 +156,98 @@ public class ALU {
     public void shiftleft(int[] registros, int x){
         String aux= String.format("%8s",Integer.toBinaryString(x)).replace(' ', '0') ;
         char c = aux.charAt(0);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= aux.substring(1)+c;
         System.out.println(rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
+        System.out.println("valor tras shift: "+ rotado);
         registros[0]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[0]);
+        //System.out.println(registros[0]);
     }
     public void shiftleft(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c = aux.charAt(0);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= aux.substring(1)+c;
+        System.out.println("valor tras shift: "+ rotado);
         System.out.println(rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[id]);
+       // System.out.println(registros[id]);
     }
     public void shiftright(int[] registros ,int value){
         String aux = String.format("%8s",Integer.toBinaryString(value)).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
-        System.out.println(c);
-        System.out.println(aux);
+       // System.out.println(c);
+        //System.out.println(aux);
         String rotado= c+aux.substring(0,aux.length()-1);
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[0]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[0]);
+        //System.out.println(registros[0]);
     }
     public void shiftright(int[] registros ,String pos){
         int id = Utilities.getIntG1(pos);
         String aux = String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
-        System.out.println(c);
-        System.out.println(aux);
+        //System.out.println(c);
+        //System.out.println(aux);
         String rotado= c+aux.substring(0,aux.length()-1);
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[id]);
+        //System.out.println(registros[id]);
     }
     public void SLA(int[] registros, int value){
         String aux= String.format("%8s",Integer.toBinaryString(value)).replace(' ', '0') ;
         char c = aux.charAt(0);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= aux.substring(1)+'0';
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[0]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[0]);
+        //System.out.println(registros[0]);
     }
     public void SLA(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         String aux= String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c = aux.charAt(0);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= aux.substring(1)+'0';
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[id]);
+        //System.out.println(registros[id]);
     }
     public void SRL(int[] registros, int x){
         String aux = String.format("%8s",Integer.toBinaryString(x)).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= '0'+aux.substring(0,aux.length()-1);
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[0]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[0]);
+        //System.out.println(registros[0]);
     }
     public void SRL(int[] registros, String pos){
         int id = Utilities.getIntG1(pos);
         String aux = String.format("%8s",Integer.toBinaryString(registros[id])).replace(' ', '0') ;
         char c= aux.charAt(aux.length()-1);
-        System.out.println(aux);
+        //System.out.println(aux);
         String rotado= '0'+aux.substring(0,aux.length()-1);
-        System.out.println(rotado);
+        System.out.println("valor tras shift: "+ rotado);
         if(Integer.parseInt(String.valueOf(c))==1) carry=true;
         else carry=false;
         registros[id]=Integer.parseInt(rotado.toString(),2) ;
-        System.out.println(registros[id]);
+       // System.out.println(registros[id]);
     }
 
     public void compare(int[] registros, int x){

@@ -31,7 +31,7 @@ public class Utilities {
     }
     public static int decimalToBinary(int N) {
         if(N==0)return 0;
-        System.out.println("utilities. dec to bin :" + N);
+        //System.out.println("utilities. dec to bin :" + N);
         StringBuilder builder = new StringBuilder();
         int base = 2;
         while (N != 0) {
@@ -43,7 +43,7 @@ public class Utilities {
         if(temp.length()<8) AdjustLength(temp);
         int aux=Integer.parseInt(temp);
 
-        System.out.println("utilities. dec to bin .temp:" + aux);
+        //System.out.println("utilities. dec to bin .temp:" + aux);
         return aux;
     }
 

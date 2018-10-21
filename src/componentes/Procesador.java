@@ -28,6 +28,72 @@ public class Procesador {
     int inicio=0;
     int fin=0;
 
+    public boolean isMreq() {
+        return mreq;
+    }
+
+    public void setMreq(boolean mreq) {
+        this.mreq = mreq;
+    }
+
+    public boolean isReqES() {
+        return reqES;
+    }
+
+    public void setReqES(boolean reqES) {
+        this.reqES = reqES;
+    }
+
+    public boolean isRD() {
+        return RD;
+    }
+
+    public void setRD(boolean RD) {
+        this.RD = RD;
+    }
+
+    public boolean isWR() {
+        return WR;
+    }
+
+    public void setWR(boolean WR) {
+        this.WR = WR;
+    }
+
+    public boolean isRefresh() {
+        return Refresh;
+    }
+
+    public void setRefresh(boolean refresh) {
+        Refresh = refresh;
+    }
+
+    public boolean isHalt() {
+        return Halt;
+    }
+
+    public void setHalt(boolean halt) {
+        Halt = halt;
+    }
+
+    public boolean isWait() {
+        return wait;
+    }
+
+    public void setWait(boolean wait) {
+        this.wait = wait;
+    }
+
+    public boolean isINT() {
+        return INT;
+    }
+
+    public void setINT(boolean INT) {
+        this.INT = INT;
+    }
+
+
+
     public int getInicio() {
         return inicio;
     }
@@ -121,37 +187,38 @@ public class Procesador {
         RD=false;
     }
     public void save_in_memory(String pos, int mempos){//guarda en memoria en x posicion un registro
-        mreq= true;
-        reqES= true;
+        mreq= false;
+        reqES= false;
         reg.showMemory(mempos);
+        WR=false;
         reg.LD("A",pos);
         reg.OUT();
         Utilities.copyData(reg.inputA,addressBus);
         Utilities.copyData(addressBus,mem.memoryinput);
         Utilities.copyData(reg.inputD,mem.Datainput);
         mem.saveDataInPos();
-        mreq= false;
-        reqES= false;
+
 
     }
     public void save_in_memory(int dato,int mempos){// guarda en memoria x numero
-        mreq= true;
-        reqES= true;
+        mreq= false;
+        reqES= false;
         reg.showMemory(mempos);
         //System.out.println("mempos :" + mempos);
+        WR=false;
         load_registrer("A",dato);
         reg.OUT();
         Utilities.copyData(reg.inputA,addressBus);
         Utilities.copyData(addressBus,mem.memoryinput);
         Utilities.copyData(reg.inputD,mem.Datainput);
         mem.saveDataInPos();
-        mreq= false;
-        reqES= false;
+
     }
     public  void save_in_memory16(String rega,String regb,int mempos){// guarda en memoria algo de 16 bits
-        mreq= true;
-        reqES= true;
+        mreq= false;
+        reqES= false;
         reg.showMemory(mempos);
+        WR=false;
         Utilities.copyData(reg.inputA,addressBus);
         Utilities.copyData(addressBus,mem.memoryinput);
         mem.saveDataInPos(reg.LD16(rega,regb));

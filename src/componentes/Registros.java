@@ -1,6 +1,7 @@
 package componentes;
 
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Registros {
@@ -21,6 +22,7 @@ public class Registros {
         int y = Utilities.getIntG1(destino);
         int z = Utilities.getIntG1(origen);
         grupo1[y]=grupo1[z];
+        System.out.println("se movio a : "+ Utilities.getLetraG1(y) +" valor :" +grupo1[z]);
     }
     public void LD2( String destino, String origen){// transfiere datos entre 2 Registros
         int y = Utilities.getIntG1(destino);
@@ -37,7 +39,7 @@ public class Registros {
         grupo1[b1]= Integer.parseInt(xp.substring(0,xp.length()/2));
         //System.out.print(grupo1[a1]+ "\n");
         //System.out.print(grupo1[b1]+ "\n");
-
+        System.out.println("se movio a : "+ Utilities.getLetraG1(a1) +" valor :" +grupo1[a1] +" y "+ Utilities.getLetraG1(b1) +" valor :" +grupo1[b1]);
     }
     public int LD16(String a, String b){// a tiene menor preponderancia que b
         int a1 = Utilities.getIntG1(a);
@@ -47,7 +49,7 @@ public class Registros {
         return Integer.parseInt(c);
     }
 
-    public void LD(String direc, int x){// lee de una direccion de memoria
+    public void LD(String direc, int x){// carga una direccion de memoria
         if (direc == "IX"){
         direccionadores[0]=x;
         }
@@ -57,6 +59,7 @@ public class Registros {
         else{
            int pos= Utilities.getIntG1(direc);
            grupo1[pos]=x;
+            System.out.println("se movio : "+ Utilities.getLetraG1(pos) +" valor :" +grupo1[pos]);
         }
     }
 
@@ -69,11 +72,12 @@ public class Registros {
         String aux2= aux.reverse().toString();
         //System.out.println(aux2);
         grupo1[0]=Integer.parseInt(aux2,2);
-        System.out.println("reg.grupo1[0] :"+ grupo1[0]);
+        System.out.println("ingreso desde D0-D6 :"+ grupo1[0]);
     }
     public void OUT(){// desde el acumulador hacia la memoria
         int bin= Utilities.decimalToBinary(grupo1[0]);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
+        System.out.println("salio desde el acumulador: "+ grupo1[0]);
         for(int i =0; i < x.length();i++){
             inputD[i]=Character.getNumericValue(x.charAt(i)) ;
             //System.out.println(D[i]);
@@ -83,10 +87,11 @@ public class Registros {
         for(int pata=0;pata<inputA.length;pata ++){
             inputA[pata]=0;
         }
-        System.out.println("reg.mempos :" + mempos);
+        //System.out.println("reg.mempos :" + mempos);
         int bin= Utilities.decimalToBinary(mempos);
-        System.out.println("reg.showmemory :" + bin);
+        //System.out.println("reg.showmemory :" + bin);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
+        System.out.println("salio  desde A0-15 :"+ x);
         for(int i =0; i < x.length();i++) {
             inputA[i] = Character.getNumericValue(x.charAt(i));
         }
@@ -94,6 +99,7 @@ public class Registros {
     public  void EXX(String x){// transfiere al grupo de respaldo A->A'
         int i = Utilities.getIntG1(x);
         grupo2[i]=grupo1[i];
+        System.out.println("transferido :"+ x +" al grupo de respaldo");
     }
     public  void EXX2(String x){// transfiere al grupo de respaldo A->A'
         int i = Utilities.getIntG1(x);
@@ -102,10 +108,20 @@ public class Registros {
     public void push(int x){
     SP++;
     stack.push(x);
+        System.out.println("se agrego al stack nuevo elemento");
     }
     public int  pop(){
     SP--;
+        System.out.println("se elimino del stack un elemento");
     return stack.pop();
+    }
+    public String getgrupo1(){
+        String s= "Registros: "+"A: "+ Integer.toString(grupo1[0]) + "B: "+ grupo1[1]+"C: "+ grupo1[2]+"D: "+ grupo1[3]+"E: "+ grupo1[4]+"H: "+ grupo1[5]+"L: "+ grupo1[6];
+        return s;
+    }
+    public String getstack(){
+        String s = "Stack :"+Arrays.toString(stack.toArray())+ " SP: "+ SP;
+        return s;
     }
 
     public static void main(String[]args){
@@ -132,6 +148,7 @@ public class Registros {
         System.out.println(m.grupo1[0]);
         m.LD("A","B",2112);
         m.LD16("A","B");
+        System.out.println(m.getgrupo1());
 
     }
 

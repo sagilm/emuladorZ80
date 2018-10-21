@@ -26,7 +26,7 @@ public class Memory implements Dispositivo {
             aux.append(r);
         }
         String aux2= aux.reverse().toString();
-        //System.out.println(aux2);
+        System.out.println("valor de lectura en memoria "+ aux2);
         memoryPos=Integer.parseInt(aux2,2);
         return memoryPos;
     }
@@ -59,7 +59,7 @@ public class Memory implements Dispositivo {
     }
     public void saveDataInPos(){//guarda un dato que viene desde otro lado en una posicion de memoria especifica
         int data= readIN(Datainput);
-        System.out.println("datoleida :" + data);
+        System.out.println("dato a guardar :" + data);
         readPos(memoryinput);
         int pos= memoryPos;
         memory[pos]=data;
@@ -72,11 +72,11 @@ public class Memory implements Dispositivo {
     }
 
     @Override
-    public void writeOUT(int[] bus) {//lee de la direccion y pone en el pueto lo que el dato de esa pos de memoria
+    public void writeOUT(int[] bus) {//lee de la direccion y pone en el puerto lo que el dato de esa pos de memoria
         int pos= returnPos(bus);
-        System.out.println("mem.memoryinput:"+ returnPos(bus));
+
         int bin= Utilities.decimalToBinary(pos);
-        //System.out.println("writeout :" + bin);
+        System.out.println("deplegando en datainput  :" + bin);
         String x = new StringBuilder((Integer.toString(bin))).reverse().toString();
         for(int i =0; i < x.length();i++){
             Datainput[i]=Character.getNumericValue(x.charAt(i)) ;
