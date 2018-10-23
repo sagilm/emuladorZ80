@@ -1,0 +1,257 @@
+<<CADENA A ANALIZAR : >>
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:false
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : LD B,32H>>
+comando encontrado LD
+numero encontrado
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 50B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:false
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : LD C,(0A2H)>>
+comando encontrado LD
+posicion de memoria encontrada
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:false RD:true
+Refresh:true ReqES:false Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:false
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : LD (0A2H),CB>>
+comando encontrado LD
+ posicion de memoria encontrada
+operacion de 16 bits
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:false
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : LD A,C>>
+comando encontrado LD
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:false
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : ADD A,B>>
+comando encontrado ADD
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : ADD A,(3AH)>>
+comando encontrado ADD
+posicion de memoria encontrada
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:false RD:true
+Refresh:true ReqES:false Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : SUB A,C>>
+comando encontrado SUB
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : INC BC>>
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : DEC BC>>
+comando encontrado DEC
+C
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : AND B>>
+comando encontrado AND
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : AND C>>
+comando encontrado AND
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : AND 23H>>
+comando encontrado AND
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : AND (23H)>>
+comando encontrado AND
+posicion de memoria encontrada
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:false RD:true
+Refresh:true ReqES:false Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : RR B>>
+comando encontrado RR
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : SLA (12H)>>
+comando encontrado SLA
+posicion de memoria encontrada
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:false RD:true
+Refresh:true ReqES:false Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : CP (1AH)>>
+comando encontrado CP
+posicion de memoria encontrada
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : SET 2,(2B)>>
+comando encontrado SET
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : CPL>>
+comando encontrado CPL
+registro encontrado
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : OUT (PORT1),A>>
+comando encontrado OUT
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : HALT>>
+comando encontrado HALT, inica detencion del programa
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>
+<<CADENA A ANALIZAR : END>>
+<<<<ESTADO DEL DISPOSITIVO>>>>
+Registros: A: 0B: 0C: 0D: 0E: 0H: 0L: 0
+Stack :[] SP: 0
+Banderas dispositivo: 
+halt:true INT:true Mreq:true RD:true
+Refresh:true ReqES:true Wait:true WR:true
+Banderas alu: 
+ Carry:false Paridad:false Sign:false Z:false Zero:true
+<<<<<<<<<<<<>>>>>>>>>>>>

@@ -1,9 +1,6 @@
 package componentes;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Procesador {
@@ -112,6 +109,7 @@ public class Procesador {
 
 
 
+
     String[] comandos = {"NEG","CPL","DEC","INC","SUB","ADD","HALT","IN","OUT","LD","ORG","EQU","JP","INC","SET","RESET","CP","RL","RLC","RR","RRC",
     "SLA","SRL","AND","OR","XOR","PUSH","POP", "EXX"};
 
@@ -140,7 +138,7 @@ public class Procesador {
         Utilities.copyData(mem.Datainput,dataBus);
         Utilities.copyData(dataBus,reg.inputD);
         reg.IN();
-        System.out.println("reg 0 :"+reg.grupo1[0]);
+        //System.out.println("reg 0 :"+reg.grupo1[0]);
         mreq= false;
         reqES=false;
 

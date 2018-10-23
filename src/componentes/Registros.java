@@ -1,6 +1,9 @@
 package componentes;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -13,16 +16,21 @@ public class Registros {
     int[] grupo2= new int[7];// grupo stack
     int SP=0;
 
+
+
     public  int getAcumulador(){
         return grupo1[0];
     }
 
 
     public void LD( String destino, String origen){// transfiere datos entre 2 Registros
+
+
         int y = Utilities.getIntG1(destino);
         int z = Utilities.getIntG1(origen);
         grupo1[y]=grupo1[z];
         System.out.println("se movio a : "+ Utilities.getLetraG1(y) +" valor :" +grupo1[z]);
+
     }
     public void LD2( String destino, String origen){// transfiere datos entre 2 Registros
         int y = Utilities.getIntG1(destino);
@@ -50,6 +58,7 @@ public class Registros {
     }
 
     public void LD(String direc, int x){// carga una direccion de memoria
+
         if (direc == "IX"){
         direccionadores[0]=x;
         }
@@ -61,6 +70,7 @@ public class Registros {
            grupo1[pos]=x;
             System.out.println("se movio : "+ Utilities.getLetraG1(pos) +" valor :" +grupo1[pos]);
         }
+
     }
 
 
@@ -151,5 +161,6 @@ public class Registros {
         System.out.println(m.getgrupo1());
 
     }
+
 
 }
